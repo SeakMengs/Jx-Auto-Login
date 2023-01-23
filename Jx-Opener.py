@@ -50,7 +50,7 @@ class GameOpener:
         for i in range(5):
             print("Starting in {time} {sec}...".format(
                 time=5 - i, sec="second." if 5 - i == 1 else "seconds"))
-            time.sleep(1)
+            time.sleep(5)
 
         # locate on screen and click once
         # on start btn
@@ -80,10 +80,15 @@ class GameOpener:
         print("Done! Logging in...\n")
 
     def locate_and_click(self, btn):
-        while True:
-            if pyautogui.locateCenterOnScreen(btn, confidence=0.7) is not None:
-                break
-        pyautogui.click(pyautogui.locateCenterOnScreen(btn, confidence=0.7))
+        try:
+            while True:
+                if pyautogui.locateCenterOnScreen(btn, confidence=0.7) is not None:
+                    break
+            pyautogui.click(pyautogui.locateCenterOnScreen(btn, confidence=0.7))
+        except Exception as e:
+            print(e)
+            time.sleep(5)
+            exit()
 
     def fill_info(self):
         while True:
