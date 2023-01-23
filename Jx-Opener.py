@@ -1,3 +1,9 @@
+"""
+    @Author: Seakmeng Hor
+    @Date: 1/23/2023
+    @Description: About A Python script developed to simplify the process of logging into Jx Online with multiple accounts.
+"""
+
 import os
 import time
 import pyautogui
@@ -10,7 +16,7 @@ with open("Data\path.csv", "r") as f:
     # get second line
     game_paths = f.readlines()[1]
 
-# Asset 
+# Asset
 nokor_chey = "Asset\chey.jpg"
 nokor_oudong = "Asset\oudong.jpg"
 nokor_reach = "Asset\Reach.jpg"
@@ -20,6 +26,7 @@ start_btn = "Asset\start.png"
 select_server = "Asset\select-server.jpg"
 confirm_btn = "Asset\confirm.png"
 check_fill = "Asset\check_fill.jpg"
+
 
 class GameOpener:
     def __init__(self, username, password, norkor):
@@ -36,12 +43,13 @@ class GameOpener:
             self.norkor = nokor_reach
 
     def open_game(self):
-        print("\nOpening game for {user}...".format(user = self.username))
+        print("\nOpening game for {user}...".format(user=self.username))
 
         os.startfile(self.path)
 
         for i in range(5):
-            print("Starting in {time} {sec}...".format(time = 5 - i, sec = "second." if 5 - i == 1 else "seconds"))
+            print("Starting in {time} {sec}...".format(
+                time=5 - i, sec="second." if 5 - i == 1 else "seconds"))
             time.sleep(1)
 
         # locate on screen and click once
@@ -84,15 +92,16 @@ class GameOpener:
                 pyautogui.press("tab")
                 pyautogui.typewrite(self.password)
                 break
-    
+
     def get_credential(self):
         # get credentials from csv file and store in list of class using pandas
         self.credential = pd.read_csv("Data\\account.csv")
         self.credential = self.credential.values.tolist()
-        self.credential = [GameOpener(i[0], i[1], i[2]) for i in self.credential]
+        self.credential = [GameOpener(i[0], i[1], i[2])
+                           for i in self.credential]
 
     def main(self):
-        # get credentials for each game. 
+        # get credentials for each game.
         self.get_credential(self)
 
         # Open each game in a separate window and login automatically
@@ -100,8 +109,9 @@ class GameOpener:
             self.credential[i].open_game()
             if (i != len(self.credential) - 1):
                 print("\nStarting another game in 5 seconds...\n")
-            else: 
+            else:
                 print("\nAll accounts has been logged in\n")
+
 
 if __name__ == "__main__":
     GameOpener.main(GameOpener)
