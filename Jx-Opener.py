@@ -6,7 +6,9 @@ import pandas as pd
 global game_paths
 
 # Path to the game executable files.
-game_paths = "E:\\JXII-V.10.6 Client\\SO2Game.exe - Shortcut"
+with open("Data\path.csv", "r") as f:
+    # get second line
+    game_paths = f.readlines()[1]
 
 # Asset 
 nokor_chey = "Asset\chey.jpg"
@@ -83,7 +85,7 @@ class GameOpener:
     
     def get_credential(self):
         # get credentials from csv file and store in list of class using pandas
-        self.credential = pd.read_csv("account.csv")
+        self.credential = pd.read_csv("Data\\account.csv")
         self.credential = self.credential.values.tolist()
         self.credential = [GameOpener(i[0], i[1], i[2]) for i in self.credential]
 
@@ -96,6 +98,8 @@ class GameOpener:
             self.credential[i].open_game()
             if (i != len(self.credential) - 1):
                 print("\nStarting another game in 5 seconds...\n")
+            else: 
+                print("\nAll accounts has been logged in\n")
 
 if __name__ == "__main__":
     GameOpener.main(GameOpener)
