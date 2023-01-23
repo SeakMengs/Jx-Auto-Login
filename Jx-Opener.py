@@ -22,12 +22,12 @@ confirm_btn = "Asset\confirm.png"
 check_fill = "Asset\check_fill.jpg"
 
 class GameOpener:
-
     def __init__(self, username, password, norkor):
         self.path = game_paths
         self.username = username
         self.password = password
 
+        # define norkor
         if norkor == "chey":
             self.norkor = nokor_chey
         elif norkor == "oudong":
@@ -37,7 +37,9 @@ class GameOpener:
 
     def open_game(self):
         print("\nOpening game for {user}...".format(user = self.username))
+
         os.startfile(self.path)
+
         for i in range(5):
             print("Starting in {time} {sec}...".format(time = 5 - i, sec = "second." if 5 - i == 1 else "seconds"))
             time.sleep(1)
